@@ -1,0 +1,56 @@
+Serial Commands in the Calibration Python Code
+
+	[181] = self.ser.write('v') 		# Ask version
+	[338] = self.ser.write("c")			# Save calibration to EEPROM
+	[348] = self.ser.write("C")			# Calibration readback from EEPROM
+	[354] = self.ser.write("x")			# Clear calibration from EEPROM
+	
+	[404] = self.ser.write('b')			# Sample data
+	[405] = self.ser.write(chr(count))	# No. of samples in before GUI update (i.e. 100 samples)
+
+Serial Commands in the Processing Cube Demo
+
+	[145] = myPort.write("v")			# Ask version
+	[152] = myPort.write("f")			#
+	[153] = myPort.write("z" + char(burst))
+	[211] = myPort.write("2")			#
+	[217] = myPort.write("1")			#
+	[223] = myPort.write("g")			#
+	[248] = myPort.write("t")			#
+
+FreeIMU methods used in Python Serial Commands
+
+	[cmd == 'v'] = 	Print version		# Read FREEIMU_DEVELOPER, FREEIMU_FREQ, FREEIMU_LIB_VERSION, FREEIMU_ID
+
+	[cmd == 'b'] =  (Set count value)	# From python code
+					getRawValues		# FreeIMU
+					(writeArr)			# To a varaible
+
+	[cmd == 'c'] = 	Calibrate			# Read eepromsize + write FREEIMU_EEPROM_BASE, FREEIMU_EEPROM_SIGNATURE to EEPROM
+					calLoad				# Reloads calibration
+					(blinkLED)
+
+	[cmd == 'x'] = 	Clear Calibration 	# Write FREEIMU_EEPROM_BASE, 0 to EEPROM
+					calLoad				# Reloads calibration
+
+	[cmd == 'C'] = 	Read Calibration 	# Reads acc_off/scale_x/y/z, magn_off/scale_x/y/z
+
+FreeIMU methods used in Processing Cube Demo
+
+	[cmd == 'f'] = 	initGyros			# Temperature ?
+					setTempCalib(0)		# Temperature ?
+
+	[cmd == 't'] = 	setTempCalib(0)		# Temperature ?
+
+	[cmd == 'z'] = 	getQ				# Read quaternion matrix
+										# Also read GPS, barometer and lots of data
+
+	[cmd == '1'] = 	init(true)			# reset device ?
+
+	[cmd == '2'] = 	RESET_Q				# reset quaternion matrix
+
+	[cmd == 'g'] = 	initGyros			# reset gyro
+
+	[cmd == 'q'] = 	getQ				# Read quaternion data ?
+
+	
