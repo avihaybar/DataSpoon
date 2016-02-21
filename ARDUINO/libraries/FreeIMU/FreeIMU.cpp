@@ -766,13 +766,13 @@ void FreeIMU::getQ(float * q, float * val) {
 
   	#endif
   
-//  	#if (MARG == 4 && IS_9DOM() && not defined(DISABLE_MAGN))
-//	    val[9] = maghead.iheading(1, 0, 0, val[0], val[1], val[2], val[6], val[7], val[8]);
-//		dcm.setSensorVals(val);
-//		dcm.G_Dt = 1./ sampleFreq;
-// 		dcm.calDCM();
-// 		dcm.getDCM2Q(q);
-//  	#endif
+  	#if (MARG == 4 && IS_9DOM() && not defined(DISABLE_MAGN))
+	    val[9] = maghead.iheading(1, 0, 0, val[0], val[1], val[2], val[6], val[7], val[8]);
+		dcm.setSensorVals(val);
+		dcm.G_Dt = 1./ sampleFreq;
+ 		dcm.calDCM();
+ 		dcm.getDCM2Q(q);
+  	#endif
 	
 //		MotionDetect( val );
   
